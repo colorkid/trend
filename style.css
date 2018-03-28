@@ -1,0 +1,269 @@
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+
+input::-webkit-input-placeholder {
+  font-size: 14px;
+  color: rgba(0,0,0,.7);
+}
+
+input::-moz-placeholder {
+  font-size: 14px;
+  color: rgba(0,0,0,.7);
+}
+
+input:-moz-placeholder {
+  font-size: 14px;
+  color: rgba(0,0,0,.7);
+}
+
+input:-ms-input-placeholder {
+  font-size: 14px;
+  color: rgba(0,0,0,.7);
+}
+
+input:focus::-webkit-input-placeholder {
+  opacity: 0;
+}
+
+input:focus::-moz-placeholder {
+  opacity: 0;
+}
+
+input:focus:-moz-placeholder {
+  opacity: 0;
+}
+
+input:focus:-ms-input-placeholder {
+  opacity: 0;
+}
+
+body {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+  font-size: 16px;
+  font-weight: 400;
+  color: #000000;
+  background-color: #f5f5f5;
+  overflow-x: hidden;
+}
+
+.table {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  width: 100%;
+  max-width: 1200px;
+  padding: 20px 10px;
+}
+
+.table__content{
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  width: 100%;
+}
+
+.table__row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 100%;
+  margin: 10px 0;
+  padding: 18px;
+  border: 2px solid #fff;
+  font-weight: 600;
+  background-color: #fff;
+}
+
+.table__row:not(.table__row--top):hover{
+    border: 2px solid rgba(141,36,169,.1);
+}
+
+.table__cell {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  padding: 0 20px;
+}
+
+.table__cell--builder{
+  max-width: 325px;
+  padding-left: 0;
+}
+
+.table__cell--object {
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  max-width: 525px;
+  min-width: 400px;
+  font-weight: 400;
+  font-size: 12px;
+  color: rgba(0,0,0,.7);
+}
+
+.table__cell--object span,
+.table__cell--percent span{
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  min-height: 30px;
+  padding: 7.5px 0 7.5px 0;
+}
+
+.table__cell--percent{
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  max-width: 200px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #000;
+}
+
+.table__cell--marketing{
+  max-width: 150px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #000;
+}
+
+.table__header{
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.search{
+  width: 100%;
+  height: 50px;
+  padding: 0 20px;
+  border: 1px solid #c2c2c2;
+  font-size: 14px;
+  color: rgba(0,0,0,.7);
+}
+
+.not-found {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  width: 100%;
+  margin-top: 65px;
+}
+
+.not-found__title {
+  width: 100%;
+  padding-bottom: 15px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.not-found__description{
+  width: 100%;
+  text-align: center;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.table__cell--top {
+  position: relative;
+}
+
+.arrows {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 30px;
+  font-size: 12px;
+  position: absolute;
+  left: 62.5px;
+  top: -5px;
+  color: #c2c2c2;
+}
+
+.arrow{
+  cursor: pointer;
+}
+
+.arrow:hover{
+  color: #7C2095;
+}
+
+@media (max-width: 1024px){
+  body{
+    padding: 20px;
+  }
+
+  .table{
+    padding: 0;
+  }
+  
+  .table__row{
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+  }
+
+  .table__cell{
+    padding: 0;
+    line-height: 1.4;
+  }
+
+  .table__cell--marketing,
+  .table__cell--percent,
+  .table__cell--object,
+  .table__cell--builder{
+    max-width: 100%;
+  }
+
+  .table__cell--object{
+    min-width: auto;
+  }
+
+  .arrows{
+    width: 100px;
+    left: 95px;
+    top: -6px;
+  }
+}

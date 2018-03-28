@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="utf-8">
+	<title>Рендеринг квартир, поиск и сортировка</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+  <body>
+  	<div class="table">
+      <div class="table__header"><input type="txt" name="search" placeholder="Начните вводить название застройщика или ЖК" class="search"></div>
+      <div class="table__row table__row--top">
+        <div class="table__cell table__cell--builder">Застройщик</div>
+        <div class="table__cell table__cell--object">ЖК</div>
+        <div class="table__cell table__cell--percent table__cell--top">План<div class="arrows"><span class="arrow">▲</span><span class="arrow">▼</span></div></div>
+        <div class="table__cell table__cell--marketing">Реклама</div>
+      </div>
+      <div class="table__content"></div>
+    </div>
+    <script src="/Controller.js" type="module"></script>
+  </body>
+</html>
