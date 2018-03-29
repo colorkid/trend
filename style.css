@@ -98,6 +98,7 @@ body {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  align-items: flex-start;
   width: 100%;
   margin: 10px 0;
   padding: 18px;
@@ -121,42 +122,53 @@ body {
   padding: 0 20px;
 }
 
-.table__cell--builder{
-  max-width: 325px;
+.table__cell--builder {
+  max-width: 200px;
   padding-left: 0;
 }
 
-.table__cell--object {
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  max-width: 525px;
-  min-width: 400px;
-  font-weight: 400;
-  font-size: 12px;
+.table__cell--blocks {
+  max-width: calc(100% - 125px - 200px)
+}
+
+.block {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.block__item {
+  width: 100%;
+  padding: 12.5px;
+  border: 1px solid #d6d6d694;
+  margin: 0 7.5px 15.5px 7.5px;
+}
+
+.block__item span {
+  font-weight: 600;
   color: rgba(0,0,0,.7);
 }
 
-.table__cell--object span,
-.table__cell--percent span{
-  display: -webkit-box;
-  display: -ms-flexbox;
+.block__names {
   display: flex;
-  width: 100%;
-  min-height: 30px;
-  padding: 7.5px 0 7.5px 0;
+  flex-wrap: wrap;
+
+  font-weight: 400;
+  font-size: 13px;
+  color: rgba(0,0,0,.7);
 }
 
-.table__cell--percent{
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  max-width: 200px;
-  font-size: 14px;
-  font-weight: 700;
-  color: #000;
+.block__percent {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 2.5px 0;
+  font-weight: 400;
+  font-size: 13px;
+  color: rgba(0,0,0,.7);
 }
 
 .table__cell--marketing{
-  max-width: 150px;
+  max-width: 125px;
   font-size: 14px;
   font-weight: 700;
   color: #000;
