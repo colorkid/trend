@@ -4,25 +4,8 @@ import Model from './model.js';
 class Controller {
 
     constructor(data) {
-    	this.data = data.data;
-      	this.model = new Model(this.data);
-      	this.view = new View(this.data);
-
-      	this.view.keyUpOnSearch(this.enterCharacters.bind(this));
-    }
-
-    enterCharacters() {
-    	let valueSearch = this.view.valueSearch();
-    	let dataFromModelToView = this.model.searchModel(valueSearch);
-
-    	if(valueSearch.length < 3) dataFromModelToView = this.data; // меняем результат когда введено не менее 3 символов
-
-    	this.renderNewData(dataFromModelToView);
-
-    }
-
-    renderNewData(dataFromModelToView) {
-    	this.view.renderData(dataFromModelToView);
+      this.model = new Model();
+      this.view = new View(data);
     }
     
 }

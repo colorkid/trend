@@ -1,18 +1,8 @@
 export default class View {
 
     constructor(data) {
-    	this.container = document.querySelector("#container");
-    	this.search = document.querySelector("#search");
-
+    	this.container = document.querySelector(".table__content");
       	this.renderData(data);
-    }
-
-    keyUpOnSearch(enterCharacters) {
-    	search.addEventListener("keyup", enterCharacters, this.valueSearch);
-    }
-
-    valueSearch() {
-		return search.value;
     }
 
     _templateDeveloper(developer, allBlocks) {
@@ -47,11 +37,9 @@ export default class View {
     }
 
     renderData(data) {
-    	this.container.innerHTML = "";
+    	if(data.data.length === 0) return; // - это понадобится в будущем
 
-    	if(data.length === 0) return; // - если комбинация символов в search ненайдена
-
-    	let allDevelopers = data;
+    	let allDevelopers = data.data;
     	let developersItem;
     	let block;
 
