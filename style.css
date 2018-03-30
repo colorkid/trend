@@ -141,7 +141,7 @@ body {
   width: 100%;
   padding: 12.5px;
   border: 1px solid #d6d6d694;
-  margin-bottom: 15.5px;
+  margin: 0 7.5px 15.5px 7.5px;
 }
 
 .block__item span {
@@ -152,9 +152,7 @@ body {
 .block__names {
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: 10px;
-  border-bottom: 1px solid #d6d6d694;
-  padding-bottom: 2.5px;
+
   font-weight: 400;
   font-size: 13px;
   color: rgba(0,0,0,.7);
@@ -233,7 +231,7 @@ body {
   font-size: 12px;
   position: absolute;
   left: 62.5px;
-  top: 3px;
+  top: -5px;
   color: #c2c2c2;
 }
 
