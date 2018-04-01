@@ -6,24 +6,35 @@ class Controller {
 
     constructor(data) {
       this.data = data.data;
+      this.dataFromModelToView = this.data;
+      this.sort = "undefined";
       this.model = new Model(this.data);
       this.view = new View(this.data);
 
       this.view.keyUpOnSearch(this.enterCharacters.bind(this));
+      this.view.clickOnSort(this.sorting.bind(this));
+    }
+
+    sorting() {
+      let valueSort = this.view.valueSort(event);
+      this.view.changeClassSort(valueSort);
+      this.sort = valueSort;
+
+      this.renderNewData(this.dataFromModelToView);
     }
 
     enterCharacters() {
     	let valueSearch = this.view.valueSearch();
-    	let dataFromModelToView = this.model.searchModel(valueSearch);
+    	this.dataFromModelToView = this.model.searchModel(valueSearch);
 
-    	if(valueSearch.length < 3) dataFromModelToView = this.data; // меняем результат когда введено не менее 3 символов
+    	if(valueSearch.length < 3) this.dataFromModelToView = this.data; // меняем результат когда введено не менее 3 символов
 
-    	this.renderNewData(dataFromModelToView);
+    	this.renderNewData(this.dataFromModelToView);
       
     }
 
     renderNewData(dataFromModelToView) {
-    	renderData(dataFromModelToView);
+    	renderData(dataFromModelToView, this.sort);
     }
 
 }

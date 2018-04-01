@@ -18,7 +18,7 @@ export default class Model {
           	}
 
           	//ищем по названию объекта(block'а)
-          	for(var j = 0; j < this.data[i].blocks.length; j++){
+          	for(let j = 0; j < this.data[i].blocks.length; j++){
 
           		if(this.data[i].blocks[j].blockName.toUpperCase().indexOf(simbolsForSearch) !== -1){
           	 		upGradeData.push(this.data[i]);

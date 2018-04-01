@@ -1,7 +1,8 @@
 import templateDeveloper from './templateDeveloper.js';
 import templateObject from './templateObject.js';
 
-export default function renderData(data) {
+export default function renderData(data, sort) {
+    console.log(sort);
     const container = document.querySelector("#container");
     container.innerHTML = "";
 

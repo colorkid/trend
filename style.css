@@ -245,6 +245,10 @@ body {
   color: #7C2095;
 }
 
+.arrow--selected{
+  color: #7C2095;
+}
+
 @media (max-width: 1024px){
   body{
     padding: 20px;
