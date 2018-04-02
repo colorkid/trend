@@ -241,10 +241,6 @@ body {
   cursor: pointer;
 }
 
-.arrow:hover{
-  color: #7C2095;
-}
-
 .arrow--selected{
   color: #7C2095;
 }

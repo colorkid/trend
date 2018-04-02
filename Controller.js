@@ -7,34 +7,35 @@ class Controller {
     constructor(data) {
       this.data = data.data;
       this.dataFromModelToView = this.data;
+      this.valueSearch = "";
       this.sort = "undefined";
+      this.numberForStartSearch = 3;
       this.model = new Model(this.data);
       this.view = new View(this.data);
-
       this.view.keyUpOnSearch(this.enterCharacters.bind(this));
       this.view.clickOnSort(this.sorting.bind(this));
+      this._renderNewData(this.numberForStartSearch);
     }
 
     sorting() {
       let valueSort = this.view.valueSort(event);
       this.view.changeClassSort(valueSort);
       this.sort = valueSort;
-
-      this.renderNewData(this.dataFromModelToView);
+      this._renderNewData(this.numberForStartSearch);
     }
 
     enterCharacters() {
-    	let valueSearch = this.view.valueSearch();
-    	this.dataFromModelToView = this.model.searchModel(valueSearch);
-
-    	if(valueSearch.length < 3) this.dataFromModelToView = this.data; // меняем результат когда введено не менее 3 символов
-
-    	this.renderNewData(this.dataFromModelToView);
-      
+    	this._renderNewData(this.numberForStartSearch);
     }
 
-    renderNewData(dataFromModelToView) {
-    	renderData(dataFromModelToView, this.sort);
+    _newDataFromModelToRender(dataFromModelToView) {
+    	renderData(dataFromModelToView);
+    }
+
+    _renderNewData(numberForStartSearch) {
+      this.valueSearch = this.view.valueSearch();
+      this.dataFromModelToView = this.model.upGradeDataFunction(this.valueSearch, this.sort, numberForStartSearch);
+      this._newDataFromModelToRender(this.dataFromModelToView);
     }
 
 }

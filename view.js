@@ -1,14 +1,11 @@
 import templateDeveloper from './templateDeveloper.js';
 import templateObject from './templateObject.js';
-import renderData from './renderData.js';
 
 export default class View {
 
     constructor(data) {
     	this.arrows = document.querySelectorAll(".arrow");
     	this.search = document.querySelector("#search");
-      	
-      	renderData(data);
     }
 
     keyUpOnSearch(enterCharacters) {
