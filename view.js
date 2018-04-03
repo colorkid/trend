@@ -4,8 +4,28 @@ import templateObject from './templateObject.js';
 export default class View {
 
     constructor(data) {
+        this.container = document.querySelector("#container");
     	this.arrows = document.querySelectorAll(".arrow");
     	this.search = document.querySelector("#search");
+    }
+
+    clickOnContainer(callClickOnContainer) {
+        this.container.addEventListener("click", callClickOnContainer, this.whatIsEvent);
+    }
+
+    whatIsEvent(event) {
+        return event.target;
+    }
+
+    changeStateFavoritesButton(buttonFavorites) {
+        if(buttonFavorites.classList.contains("table__cell--on-like")){
+            buttonFavorites.innerHTML = "Добавить в избранное";
+            buttonFavorites.classList.remove("table__cell--on-like");
+            return;
+        }
+
+        buttonFavorites.innerHTML = "Убрать из изрбанного";
+        buttonFavorites.classList.add("table__cell--on-like");
     }
 
     keyUpOnSearch(enterCharacters) {
@@ -21,7 +41,6 @@ export default class View {
     		this.arrows[i].addEventListener("click", sorting, this.valueSort);
     	}
     }
-
 
     valueSort(event) {
     	if(event.target.classList.contains("arrow--selected")) return "undefined";
@@ -48,4 +67,35 @@ export default class View {
 
     }
 
+    renderData(data) {
+        this.container.innerHTML = "";
+
+        if(data.length === 0) return; // - если комбинация символов в search ненайдена
+
+        let allDevelopers = data;
+        let developersItem;
+        let object;
+        let fragmentObject;
+        let fragmentDeveloper;
+
+        for(let i = 0; i < allDevelopers.length; i++){
+                
+            let allBlocks = document.createElement("div");
+            allBlocks.className = "block";
+
+            //внутри массива может быть подмассив
+            for(let y = 0; y < allDevelopers[i].blocks.length; y++){
+                object = templateObject(allDevelopers[i].blocks[y]);
+                fragmentObject = document.createDocumentFragment();
+                fragmentObject.appendChild(object);
+                allBlocks.appendChild(fragmentObject);
+            }
+
+            fragmentDeveloper = document.createDocumentFragment();
+            developersItem = templateDeveloper(allDevelopers[i], allBlocks);
+            fragmentObject.appendChild(developersItem);
+            this.container.appendChild(fragmentObject);
+        }
+        
+    }
 }

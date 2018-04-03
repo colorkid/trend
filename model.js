@@ -5,6 +5,16 @@ export default class Model {
 
     constructor(data) {
       this.data = data;
+      this.dataWithIndex = [];
+
+      this.addIndexItem(this.data);
+    }
+
+    addIndexItem(data) {
+      for(let i = 0; i < data.length; i++){
+        data[i].dataIndex = i;
+        this.dataWithIndex.push(data[i]);
+      }
     }
 
     _fromLowToHight(a, b) {
@@ -66,26 +76,26 @@ export default class Model {
       let sortValue = sort;
 
       if(valueSearch.length < numberForStart) {
-        return this._sorting(this.data, sortValue); 
+        return this._sorting(this.dataWithIndex, sortValue); 
       }
 
       let upGradeData = [];
       let simbolsForSearch = valueSearch.toUpperCase();
 
-      for(let i = 0; i < this.data.length; i++){
+      for(let i = 0; i < this.dataWithIndex.length; i++){
         
         //ищем по названию завтройщика
-        if(this.data[i].builderName.toUpperCase().indexOf(simbolsForSearch) !== -1){
-          upGradeData.push(this.data[i]);
+        if(this.dataWithIndex[i].builderName.toUpperCase().indexOf(simbolsForSearch) !== -1){
+          upGradeData.push(this.dataWithIndex[i]);
               
           continue;
         }
 
         //ищем по названию объекта(block'а)
-        for(let j = 0; j < this.data[i].blocks.length; j++){
+        for(let j = 0; j < this.dataWithIndex[i].blocks.length; j++){
 
-          if(this.data[i].blocks[j].blockName.toUpperCase().indexOf(simbolsForSearch) !== -1){
-            upGradeData.push(this.data[i]);
+          if(this.dataWithIndex[i].blocks[j].blockName.toUpperCase().indexOf(simbolsForSearch) !== -1){
+            upGradeData.push(this.dataWithIndex[i]);
           }
               
         }

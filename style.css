@@ -105,6 +105,7 @@ body {
   border: 2px solid #fff;
   font-weight: 600;
   background-color: #fff;
+  position: relative;
 }
 
 .table__row:not(.table__row--top):hover{
@@ -147,6 +148,10 @@ body {
 .block__item span {
   font-weight: 600;
   color: rgba(0,0,0,.7);
+}
+
+.block .block__item:last-child {
+  margin-bottom: 0
 }
 
 .block__names {
@@ -243,6 +248,28 @@ body {
 
 .arrow--selected{
   color: #7C2095;
+}
+
+.table__cell--like {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  font-weight: 400;
+  padding: 5px 0px;
+  border: 1px solid #c2c2c2;
+  font-size: 12px;
+  color: rgba(0,0,0,.7);
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 100px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.table__cell--on-like {
+  border-color: #7c2095;
+  color: #7c2095;
+  font-weight: 600;
 }
 
 @media (max-width: 1024px){

@@ -1,6 +1,5 @@
 import View from './view.js';
 import Model from './model.js';
-import renderData from './renderData.js';
 
 class Controller {
 
@@ -14,7 +13,20 @@ class Controller {
       this.view = new View(this.data);
       this.view.keyUpOnSearch(this.enterCharacters.bind(this));
       this.view.clickOnSort(this.sorting.bind(this));
+      this.view.clickOnContainer(this.callClickOnContainer.bind(this));
       this._renderNewData(this.numberForStartSearch);
+    }
+
+    callClickOnContainer() {
+      let eventTarget = this.view.whatIsEvent(event);
+      this._addToFavorites(eventTarget);
+    }
+
+    _addToFavorites(eventTarget) {
+      if(eventTarget.classList.contains("table__cell--like")){
+        let buttonFavorites = eventTarget;
+        this.view.changeStateFavoritesButton(buttonFavorites);
+      }
     }
 
     sorting() {
@@ -29,7 +41,7 @@ class Controller {
     }
 
     _newDataFromModelToRender(dataFromModelToView) {
-    	renderData(dataFromModelToView);
+    	this.view.renderData(dataFromModelToView);
     }
 
     _renderNewData(numberForStartSearch) {
