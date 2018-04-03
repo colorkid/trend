@@ -1,5 +1,6 @@
 var gulp        = require('gulp');
 var browserSync = require('browser-sync').create();
+var reload      = browserSync.reload;
 
 // Static server
 gulp.task('serve', function() {
@@ -7,6 +8,7 @@ gulp.task('serve', function() {
         server: {
             baseDir: "./"
         },
-        open: false
-    });
+        open: false,
+        files: ["./*.js"]
+    })
 });

@@ -1,14 +1,15 @@
 import View from './view.js';
 import Model from './model.js';
+import renderData from './renderData.js';
 
 class Controller {
 
     constructor(data) {
-    	this.data = data.data;
-      	this.model = new Model(this.data);
-      	this.view = new View(this.data);
+      this.data = data.data;
+      this.model = new Model(this.data);
+      this.view = new View(this.data);
 
-      	this.view.keyUpOnSearch(this.enterCharacters.bind(this));
+      this.view.keyUpOnSearch(this.enterCharacters.bind(this));
     }
 
     enterCharacters() {
@@ -18,18 +19,18 @@ class Controller {
     	if(valueSearch.length < 3) dataFromModelToView = this.data; // меняем результат когда введено не менее 3 символов
 
     	this.renderNewData(dataFromModelToView);
-
+      
     }
 
     renderNewData(dataFromModelToView) {
-    	this.view.renderData(dataFromModelToView);
+    	renderData(dataFromModelToView);
     }
-    
+
 }
 
 function startApp() {
   fetch('data.json')
-    .then(function(response) { 
+    .then(function(response) {
         return response.json();
     }).then(function(data) {
 
@@ -43,5 +44,7 @@ function startApp() {
       return;
     });
 }
+
+
 
 document.addEventListener("DOMContentLoaded", startApp);

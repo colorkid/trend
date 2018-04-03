@@ -1,0 +1,26 @@
+{
+  "name": "training",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Controller.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/colorkid/trend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/colorkid/trend/issues"
+  },
+  "homepage": "https://github.com/colorkid/trend#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  },
+  "dependencies": {
+    "browser-sync": "^2.23.6",
+    "gulp-eslint": "^4.0.2"
+  }
+}
