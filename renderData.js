@@ -10,6 +10,8 @@ export default function renderData(data) {
     let allDevelopers = data;
     let developersItem;
     let object;
+    let fragmentObject;
+    let fragmentDeveloper;
 
     for(let i = 0; i < allDevelopers.length; i++){
     		
@@ -19,12 +21,17 @@ export default function renderData(data) {
     	//внутри массива может быть подмассив
     	for(let y = 0; y < allDevelopers[i].blocks.length; y++){
     		object = templateObject(allDevelopers[i].blocks[y]);
-    		allBlocks.appendChild(object);
-    	}
-    	    
-    	developersItem = templateDeveloper(allDevelopers[i], allBlocks);
-    	container.appendChild(developersItem);
+            fragmentObject = document.createDocumentFragment();
+            fragmentObject.appendChild(object);
+    	    allBlocks.appendChild(fragmentObject);
+        }
 
-    } 
+        fragmentDeveloper = document.createDocumentFragment();
+        developersItem = templateDeveloper(allDevelopers[i], allBlocks);
+        fragmentObject.appendChild(developersItem);
+        container.appendChild(fragmentObject);
+    }
+
+
 
 }
