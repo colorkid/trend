@@ -1,20 +1,77 @@
+//сниппеты от https://30secondsofcode.org/
 const minN = (arr, n = 1) => [...arr].sort((a, b) => a - b).slice(0, n);
 const maxN = (arr, n = 1) => [...arr].sort((a, b) => b - a).slice(0, n);
+
+const remove = (arr, func) =>
+  Array.isArray(arr)
+    ? arr.filter(func).reduce((acc, val) => {
+        arr.splice(arr.indexOf(val), 1);
+        return acc.concat(val);
+      }, [])
+    : [];
 
 export default class Model {
 
     constructor(data) {
       this.data = data;
-      this.dataWithIndex = [];
+      this.favoritesIndexArr = [];
+      this.favoritesData = [];
+    }
 
-      this.addIndexItem(this.data);
+    cleanFavoritesData(data) {
+      this.favoritesIndexArr = [];
+      this.favoritesData = [];
+
+      for(let i = 0; i < this.data.length; i++){
+        this.data[i].dataFavorites = false;
+      }
     }
 
     addIndexItem(data) {
+      let dataWithIndex = [];
+
       for(let i = 0; i < data.length; i++){
         data[i].dataIndex = i;
-        this.dataWithIndex.push(data[i]);
+        data[i].dataFavorites = false;
+        dataWithIndex.push(data[i]);
       }
+
+      return dataWithIndex;
+    }
+
+    addFavoritesItem(indexItem) {
+      this.favoritesIndexArr.push(+indexItem);
+      this._createFavoritesData(this.favoritesIndexArr);
+    }
+
+    removeFavoritesItem(indexItem) {
+      remove(this.favoritesIndexArr, n => n === +indexItem);
+      this._createFavoritesData(this.favoritesIndexArr);
+    }
+
+    _createFavoritesData(favoritesIndexArr) {
+      this.favoritesData = [];
+
+      for(let i = 0; i < this.data.length; i++){
+
+        this.data[i].dataFavorites = false;
+
+        for(let j = 0; j < favoritesIndexArr.length; j++){
+
+          if(this.data[i].dataIndex === favoritesIndexArr[j]) {
+            this.data[i].dataFavorites = true;
+            this.favoritesData.push(this.data[i]);
+          }
+         
+        }
+
+      }
+
+      this._upGradeDataFunctionStateOfFavorites();
+    }
+
+    _upGradeDataFunctionStateOfFavorites() {
+      return this.data;
     }
 
     _fromLowToHight(a, b) {
@@ -76,26 +133,26 @@ export default class Model {
       let sortValue = sort;
 
       if(valueSearch.length < numberForStart) {
-        return this._sorting(this.dataWithIndex, sortValue); 
+        return this._sorting(this.data, sortValue); 
       }
 
       let upGradeData = [];
       let simbolsForSearch = valueSearch.toUpperCase();
 
-      for(let i = 0; i < this.dataWithIndex.length; i++){
+      for(let i = 0; i < this.data.length; i++){
         
         //ищем по названию завтройщика
-        if(this.dataWithIndex[i].builderName.toUpperCase().indexOf(simbolsForSearch) !== -1){
-          upGradeData.push(this.dataWithIndex[i]);
+        if(this.data[i].builderName.toUpperCase().indexOf(simbolsForSearch) !== -1){
+          upGradeData.push(this.data[i]);
               
           continue;
         }
 
         //ищем по названию объекта(block'а)
-        for(let j = 0; j < this.dataWithIndex[i].blocks.length; j++){
+        for(let j = 0; j < this.data[i].blocks.length; j++){
 
-          if(this.dataWithIndex[i].blocks[j].blockName.toUpperCase().indexOf(simbolsForSearch) !== -1){
-            upGradeData.push(this.dataWithIndex[i]);
+          if(this.data[i].blocks[j].blockName.toUpperCase().indexOf(simbolsForSearch) !== -1){
+            upGradeData.push(this.data[i]);
           }
               
         }

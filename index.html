@@ -9,7 +9,7 @@
 </head>
   <body>
   	<div class="table">
-      <div class="table__header"><input type="txt" name="search" placeholder="Начните вводить название застройщика или ЖК" class="search" id="search"></div>
+      <div class="table__header"><input type="txt" name="search" placeholder="Начните вводить название застройщика или ЖК" class="search" id="search"><button class="button" id="favorites-button">Показать избранные</button><button class="button" id="all-button">Показать все</button></div>
       <div class="table__row table__row--top">
         <div class="table__cell table__cell--builder">Застройщик</div>
         <div class="table__cell table__cell--object">ЖК</div>
@@ -17,6 +17,7 @@
         <div class="table__cell table__cell--marketing">Реклама</div>
       </div>
       <div class="table__content" id="container"></div>
+      <button class="button button--delete-all" id="delete-all">Удалить все</button>
     </div>
     <script src="./Controller.js" type="module"></script>
   </body>

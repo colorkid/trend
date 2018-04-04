@@ -5,8 +5,42 @@ export default class View {
 
     constructor(data) {
         this.container = document.querySelector("#container");
+        this.arrowsWrapper = document.querySelector(".arrows");
     	this.arrows = document.querySelectorAll(".arrow");
     	this.search = document.querySelector("#search");
+        this.favoriteButton = document.querySelector("#favorites-button");
+        this.allButton = document.querySelector("#all-button");
+        this.deleteAllButton = document.querySelector("#delete-all");
+    }
+
+    includedUi() {
+        this.search.removeAttribute("disabled");
+        this.arrowsWrapper.classList.remove("arrows--disabled");
+    }
+
+    disabledUi() {
+        this.search.setAttribute("disabled", "true");
+        this.arrowsWrapper.classList.add("arrows--disabled");
+    }
+
+    clickOnDeleteAllButton(callDeleteAllButton) {
+        this.deleteAllButton.addEventListener("click", callDeleteAllButton);
+    }
+
+    hideDeleteAllButton() {
+        this.deleteAllButton.classList.remove("button--show");
+    }
+
+    showDeleteAllButton() {
+        this.deleteAllButton.classList.add("button--show");
+    }
+
+    clickOnAllButton(callAllButton) {
+        this.allButton.addEventListener("click", callAllButton);
+    }
+
+    clickOnFavoriteButton(callFavoriteButton) {
+        this.favoriteButton.addEventListener("click", callFavoriteButton);
     }
 
     clickOnContainer(callClickOnContainer) {
@@ -70,7 +104,11 @@ export default class View {
     renderData(data) {
         this.container.innerHTML = "";
 
-        if(data.length === 0) return; // - если комбинация символов в search ненайдена
+        // - если комбинация символов в search ненайдена
+        if(data.length === 0) {
+            this.container.innerHTML = "Ничего не найдено";
+            return;
+        }
 
         let allDevelopers = data;
         let developersItem;

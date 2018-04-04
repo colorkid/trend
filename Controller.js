@@ -5,28 +5,61 @@ class Controller {
 
     constructor(data) {
       this.data = data.data;
-      this.dataFromModelToView = this.data;
+      this.model = new Model(this.data);
+      this.dataWhitIndex = this.model.addIndexItem(this.data);
+      this.dataFromModelToView = this.dataWhitIndex;
       this.valueSearch = "";
       this.sort = "undefined";
       this.numberForStartSearch = 3;
-      this.model = new Model(this.data);
-      this.view = new View(this.data);
+      this.view = new View(this.dataWhitIndex);
       this.view.keyUpOnSearch(this.enterCharacters.bind(this));
       this.view.clickOnSort(this.sorting.bind(this));
       this.view.clickOnContainer(this.callClickOnContainer.bind(this));
+      this.view.clickOnFavoriteButton(this.callFavoriteButton.bind(this));
+      this.view.clickOnAllButton(this.callAllButton.bind(this));
+      this.view.clickOnDeleteAllButton(this.callDeleteAllButton.bind(this));
       this._renderNewData(this.numberForStartSearch);
+    }
+
+    callDeleteAllButton() {
+      this.model.cleanFavoritesData(this.dataFromModelToView);
+      this.view.renderData(this.model.favoritesData);
+      this.dataFromModelToView = this.model.data;
+    }
+
+    callAllButton() {
+      this.view.renderData(this.dataFromModelToView);
+      this.view.hideDeleteAllButton();
+      this.view.includedUi();
+    }
+
+    callFavoriteButton() {
+      this.view.renderData(this.model.favoritesData);
+      this.view.showDeleteAllButton();
+      this.view.disabledUi();
     }
 
     callClickOnContainer() {
       let eventTarget = this.view.whatIsEvent(event);
-      this._addToFavorites(eventTarget);
+      this._addRemoveInFavorites(eventTarget);
     }
 
-    _addToFavorites(eventTarget) {
+    _addRemoveInFavorites(eventTarget) {
       if(eventTarget.classList.contains("table__cell--like")){
-        let buttonFavorites = eventTarget;
-        this.view.changeStateFavoritesButton(buttonFavorites);
+        this.view.changeStateFavoritesButton(eventTarget);
+        this._addOrRemoveInFavorites(eventTarget);
       }
+    }
+
+    _addOrRemoveInFavorites(eventTarget) {
+      let indexItem = eventTarget.dataset.index;
+    
+      if(!eventTarget.classList.contains("table__cell--on-like")){
+        this.model.removeFavoritesItem(indexItem);
+        return;
+      }
+
+      this.model.addFavoritesItem(indexItem);
     }
 
     sorting() {

@@ -182,8 +182,32 @@ body {
 }
 
 .table__header{
+  display: flex;
   width: 100%;
   margin-bottom: 10px;
+}
+
+.button {
+  white-space: nowrap;
+  margin-left: 15px;
+  background-color: #fff;
+  color: #7c2095;
+  border: 1px solid #7c2095;
+  padding: 15px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #7c2095;
+  color: #fff;
+}
+
+.button--delete-all {
+  display: none;
+}
+
+.button--show {
+  display: block;
 }
 
 .search{
@@ -248,6 +272,15 @@ body {
 
 .arrow--selected{
   color: #7C2095;
+}
+
+.arrows--disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.search[disabled="true"]{
+  opacity: 0.5;
 }
 
 .table__cell--like {
