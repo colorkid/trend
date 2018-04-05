@@ -3,7 +3,7 @@ import templateObject from './templateObject.js';
 
 export default class View {
 
-    constructor(data) {
+    constructor() {
         this.container = document.querySelector("#container");
         this.arrowsWrapper = document.querySelector(".arrows");
     	this.arrows = document.querySelectorAll(".arrow");

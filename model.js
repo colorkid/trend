@@ -41,15 +41,15 @@ export default class Model {
 
     addFavoritesItem(indexItem) {
       this.favoritesIndexArr.push(+indexItem);
-      this._createFavoritesData(this.favoritesIndexArr);
+      this.createFavoritesData(this.favoritesIndexArr);
     }
 
     removeFavoritesItem(indexItem) {
       remove(this.favoritesIndexArr, n => n === +indexItem);
-      this._createFavoritesData(this.favoritesIndexArr);
+      this.createFavoritesData(this.favoritesIndexArr);
     }
 
-    _createFavoritesData(favoritesIndexArr) {
+    createFavoritesData(favoritesIndexArr) {
       this.favoritesData = [];
 
       for(let i = 0; i < this.data.length; i++){

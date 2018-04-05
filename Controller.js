@@ -4,14 +4,11 @@ import Model from './model.js';
 class Controller {
 
     constructor(data) {
-      this.data = data.data;
-      this.model = new Model(this.data);
-      this.dataWhitIndex = this.model.addIndexItem(this.data);
-      this.dataFromModelToView = this.dataWhitIndex;
+      this.scanLocalStorageData(data);
       this.valueSearch = "";
       this.sort = "undefined";
       this.numberForStartSearch = 3;
-      this.view = new View(this.dataWhitIndex);
+      this.view = new View();
       this.view.keyUpOnSearch(this.enterCharacters.bind(this));
       this.view.clickOnSort(this.sorting.bind(this));
       this.view.clickOnContainer(this.callClickOnContainer.bind(this));
@@ -21,10 +18,47 @@ class Controller {
       this._renderNewData(this.numberForStartSearch);
     }
 
+    scanLocalStorageData(data) {
+      let dataForStart = data.data;
+      let fromLocalFavoritesData = [];
+      let fromLocalfavoritesIndexArr = [];
+
+      if (localStorage.getItem('dataLocal') !== null) {
+        dataForStart = JSON.parse(localStorage.getItem('dataLocal'));
+        fromLocalFavoritesData = JSON.parse(localStorage.getItem('favoritesData'));
+        fromLocalfavoritesIndexArr = JSON.parse(localStorage.getItem('favoritesIndexArr'));
+
+        this.model = new Model(dataForStart);
+        this.model.favoritesIndexArr = fromLocalfavoritesIndexArr;
+        this.model.favoritesData = fromLocalFavoritesData;
+        this.dataFromModelToView = dataForStart;
+      }
+
+      else {
+        this.model = new Model(dataForStart);
+        this.dataFromModelToView = this.model.addIndexItem(dataForStart);
+      }
+
+    }
+
+    setLocalStorageData() {
+      this.model.createFavoritesData(this.model.favoritesIndexArr);
+
+      let serialLocalStorageData = JSON.stringify(this.model.data);
+      localStorage.setItem('dataLocal', serialLocalStorageData);
+
+      let serialLocalStorageFavoritesData = JSON.stringify(this.model.favoritesData);
+      localStorage.setItem('favoritesData', serialLocalStorageFavoritesData);
+
+      let serialLocalStorageFavoritesIndexArr = JSON.stringify(this.model.favoritesIndexArr);
+      localStorage.setItem('favoritesIndexArr', serialLocalStorageFavoritesIndexArr);
+    }
+
     callDeleteAllButton() {
       this.model.cleanFavoritesData(this.dataFromModelToView);
       this.view.renderData(this.model.favoritesData);
       this.dataFromModelToView = this.model.data;
+      localStorage.clear();
     }
 
     callAllButton() {
@@ -48,6 +82,7 @@ class Controller {
       if(eventTarget.classList.contains("table__cell--like")){
         this.view.changeStateFavoritesButton(eventTarget);
         this._addOrRemoveInFavorites(eventTarget);
+        this.setLocalStorageData();
       }
     }
 
