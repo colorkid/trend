@@ -3,6 +3,7 @@ import templateObject from './templateObject.js';
 
 export default class View {
 
+<<<<<<< HEAD
     constructor() {
         this.container = document.querySelector("#container");
         this.arrowsWrapper = document.querySelector(".arrows");
@@ -34,6 +35,16 @@ export default class View {
     showDeleteAllButton() {
         this.deleteAllButton.classList.add("button--show");
     }
+=======
+    constructor(data) {
+    	this.container = document.querySelector(".table__content");
+      	this.renderData(data);
+    }
+
+    _templateDeveloper(developer, allBlocks) {
+    	let row = document.createElement("div");
+    	row.className = "table__row";
+>>>>>>> 44d7f1be1b6483bbe20005e98763272e8f2fa6e0
 
     clickOnAllButton(callAllButton) {
         this.allButton.addEventListener("click", callAllButton);
@@ -62,6 +73,7 @@ export default class View {
         buttonFavorites.classList.add("table__cell--on-like");
     }
 
+<<<<<<< HEAD
     keyUpOnSearch(enterCharacters) {
     	this.search.addEventListener("keyup", enterCharacters, this.valueSearch);
     }
@@ -88,6 +100,14 @@ export default class View {
     		if(this.arrows[i].dataset.arrow === value && !this.arrows[i].classList.contains("arrow--selected")) {
     			this.arrows[i].classList.add("arrow--selected");
     		}
+=======
+    renderData(data) {
+    	if(data.data.length === 0) return; // - это понадобится в будущем
+
+    	let allDevelopers = data.data;
+    	let developersItem;
+    	let block;
+>>>>>>> 44d7f1be1b6483bbe20005e98763272e8f2fa6e0
 
     		else if(this.arrows[i].dataset.arrow === value && this.arrows[i].classList.contains("arrow--selected")) {
     			this.arrows[i].classList.remove("arrow--selected");
