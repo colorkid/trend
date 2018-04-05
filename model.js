@@ -12,7 +12,6 @@ const remove = (arr, func) =>
 
 export default class Model {
 
-<<<<<<< HEAD
     constructor(data) {
       this.data = data;
       this.favoritesIndexArr = [];
@@ -165,10 +164,4 @@ export default class Model {
       return upGradeData;
     }
 
-=======
-    constructor() {
-      
-    }
-
->>>>>>> 44d7f1be1b6483bbe20005e98763272e8f2fa6e0
 }

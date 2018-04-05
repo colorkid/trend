@@ -3,12 +3,11 @@ import templateObject from './templateObject.js';
 
 export default class View {
 
-<<<<<<< HEAD
     constructor() {
         this.container = document.querySelector("#container");
         this.arrowsWrapper = document.querySelector(".arrows");
-    	this.arrows = document.querySelectorAll(".arrow");
-    	this.search = document.querySelector("#search");
+        this.arrows = document.querySelectorAll(".arrow");
+        this.search = document.querySelector("#search");
         this.favoriteButton = document.querySelector("#favorites-button");
         this.allButton = document.querySelector("#all-button");
         this.deleteAllButton = document.querySelector("#delete-all");
@@ -35,16 +34,6 @@ export default class View {
     showDeleteAllButton() {
         this.deleteAllButton.classList.add("button--show");
     }
-=======
-    constructor(data) {
-    	this.container = document.querySelector(".table__content");
-      	this.renderData(data);
-    }
-
-    _templateDeveloper(developer, allBlocks) {
-    	let row = document.createElement("div");
-    	row.className = "table__row";
->>>>>>> 44d7f1be1b6483bbe20005e98763272e8f2fa6e0
 
     clickOnAllButton(callAllButton) {
         this.allButton.addEventListener("click", callAllButton);
@@ -73,51 +62,42 @@ export default class View {
         buttonFavorites.classList.add("table__cell--on-like");
     }
 
-<<<<<<< HEAD
     keyUpOnSearch(enterCharacters) {
-    	this.search.addEventListener("keyup", enterCharacters, this.valueSearch);
+        this.search.addEventListener("keyup", enterCharacters, this.valueSearch);
     }
 
     valueSearch() {
-		return this.search.value;
+        return this.search.value;
     }
 
     clickOnSort(sorting) {
-    	for (let i = 0; i < this.arrows.length; i++) {
-    		this.arrows[i].addEventListener("click", sorting, this.valueSort);
-    	}
+        for (let i = 0; i < this.arrows.length; i++) {
+            this.arrows[i].addEventListener("click", sorting, this.valueSort);
+        }
     }
 
     valueSort(event) {
-    	if(event.target.classList.contains("arrow--selected")) return "undefined";
-		return event.target.dataset.arrow;
+        if(event.target.classList.contains("arrow--selected")) return "undefined";
+        return event.target.dataset.arrow;
     }
 
     changeClassSort(value) {
-    	
-    	for (let i = 0; i < this.arrows.length; i++) {
+        
+        for (let i = 0; i < this.arrows.length; i++) {
 
-    		if(this.arrows[i].dataset.arrow === value && !this.arrows[i].classList.contains("arrow--selected")) {
-    			this.arrows[i].classList.add("arrow--selected");
-    		}
-=======
-    renderData(data) {
-    	if(data.data.length === 0) return; // - это понадобится в будущем
+            if(this.arrows[i].dataset.arrow === value && !this.arrows[i].classList.contains("arrow--selected")) {
+                this.arrows[i].classList.add("arrow--selected");
+            }
 
-    	let allDevelopers = data.data;
-    	let developersItem;
-    	let block;
->>>>>>> 44d7f1be1b6483bbe20005e98763272e8f2fa6e0
+            else if(this.arrows[i].dataset.arrow === value && this.arrows[i].classList.contains("arrow--selected")) {
+                this.arrows[i].classList.remove("arrow--selected");
+            }
 
-    		else if(this.arrows[i].dataset.arrow === value && this.arrows[i].classList.contains("arrow--selected")) {
-    			this.arrows[i].classList.remove("arrow--selected");
-    		}
+            else {
+                this.arrows[i].classList.remove("arrow--selected");
+            }
 
-    		else {
-    			this.arrows[i].classList.remove("arrow--selected");
-    		}
-
-    	}
+        }
 
     }
 
