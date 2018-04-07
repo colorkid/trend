@@ -62,6 +62,8 @@ class Controller {
         fromLocalfavoritesIndexArr = JSON.parse(localStorage.getItem('favoritesIndexArr'));
 
         this.model = new Model(dataForStart);
+        this.model.favoritesIndexArr = fromLocalfavoritesIndexArr;
+        this.model.favoritesData = fromLocalFavoritesData;
         this.dataFromModelToView = dataForStart;
       }
 
