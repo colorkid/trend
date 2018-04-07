@@ -1,10 +1,12 @@
 import View from './view.js';
 import Model from './model.js';
 
-class Controller {
+export default class Controller {
 
     constructor(data) {
-      this.scanLocalStorageData(data);
+      this.initModel(data.data);
+     // this.model = new Model(data.data);
+      this.dataFromModelToView = this.model.addIndexItem(data.data);
       this.valueSearch = "";
       this.sort = "undefined";
       this.numberForStartSearch = 3;
@@ -18,8 +20,8 @@ class Controller {
       this._renderNewData(this.numberForStartSearch);
     }
 
-    scanLocalStorageData(data) {
-      let dataForStart = data.data;
+    initModel(data) {
+    /*  let dataForStart = data.data;
       let fromLocalFavoritesData = [];
       let fromLocalfavoritesIndexArr = [];
 
@@ -38,11 +40,20 @@ class Controller {
         this.model = new Model(dataForStart);
         this.dataFromModelToView = this.model.addIndexItem(dataForStart);
       }
+    */
 
+      //new
+      let setIdFavoritesFromLocal = JSON.parse(localStorage.getItem('idFavoritesLocalStorage'));
+      this.model = new Model(data, setIdFavoritesFromLocal);
     }
 
     setLocalStorageData() {
-      this.model.createFavoritesData(this.model.favoritesIndexArr);
+      //new
+      let arrFromSet = Array.from(this.model.favoritesIdSet);
+      let serialLocalStorageData = JSON.stringify(arrFromSet);
+      localStorage.setItem('idFavoritesLocalStorage', serialLocalStorageData);
+
+     /* this.model.createFavoritesData(this.model.favoritesIndexArr);
 
       let serialLocalStorageData = JSON.stringify(this.model.data);
       localStorage.setItem('dataLocal', serialLocalStorageData);
@@ -51,7 +62,7 @@ class Controller {
       localStorage.setItem('favoritesData', serialLocalStorageFavoritesData);
 
       let serialLocalStorageFavoritesIndexArr = JSON.stringify(this.model.favoritesIndexArr);
-      localStorage.setItem('favoritesIndexArr', serialLocalStorageFavoritesIndexArr);
+      localStorage.setItem('favoritesIndexArr', serialLocalStorageFavoritesIndexArr);*/
     }
 
     callDeleteAllButton() {
@@ -91,10 +102,18 @@ class Controller {
     
       if(!eventTarget.classList.contains("table__cell--on-like")){
         this.model.removeFavoritesItem(indexItem);
+
+        //new
+        this.model.removeFavoritesId(eventTarget.dataset.id);
+
         return;
       }
 
       this.model.addFavoritesItem(indexItem);
+
+
+      //new
+      this.model.addFavoritesId(eventTarget.dataset.id);
     }
 
     sorting() {
@@ -117,26 +136,4 @@ class Controller {
       this.dataFromModelToView = this.model.upGradeDataFunction(this.valueSearch, this.sort, numberForStartSearch);
       this._newDataFromModelToRender(this.dataFromModelToView);
     }
-
 }
-
-function startApp() {
-  fetch('data.json')
-    .then(function(response) {
-        return response.json();
-    }).then(function(data) {
-
-      //Только при удачной подргузки данных, мы запускаем приложение;
-      const controller = new Controller(data);
-
-    }).catch(function(err) {
-      console.log(err.name);
-      console.log(err.message);
-      console.log(err.stack);
-      return;
-    });
-}
-
-
-
-document.addEventListener("DOMContentLoaded", startApp);

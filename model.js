@@ -12,10 +12,13 @@ const remove = (arr, func) =>
 
 export default class Model {
 
-    constructor(data) {
+    constructor(data, setIdFavoritesFromLocal) {
       this.data = data;
       this.favoritesIndexArr = [];
       this.favoritesData = [];
+
+      //new
+      this.favoritesIdSet = new Set(setIdFavoritesFromLocal);
     }
 
     cleanFavoritesData(data) {
@@ -37,6 +40,16 @@ export default class Model {
       }
 
       return dataWithIndex;
+    }
+
+    //new
+    addFavoritesId(id) {
+    	this.favoritesIdSet.add(id);
+    }
+
+    //new
+    removeFavoritesId(id) {
+    	this.favoritesIdSet.delete(id);
     }
 
     addFavoritesItem(indexItem) {
