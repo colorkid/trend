@@ -14,19 +14,26 @@ export default class Model {
 
     constructor(data) {
       this.data = data;
+      // не нужно в модели, см. комментарии Controller#callDeleteAllButton
       this.favoritesIndexArr = [];
+      // не нужно вообще, это одна из форм this.data, видимо.
       this.favoritesData = [];
     }
 
+    // не нужен, см. выше
     cleanFavoritesData(data) {
       this.favoritesIndexArr = [];
       this.favoritesData = [];
 
+      // никогда (!!!) не используй for(;;), если есть возможность обойтись без него. 
+      // for слишком низкоуровневый, сложно читается и легко позволяет допустить ошибки. 
+      // для массивов есть куча прекрасных методов, позволяющих писать лаконично и ясно.
       for(let i = 0; i < this.data.length; i++){
         this.data[i].dataFavorites = false;
       }
     }
 
+    // не нужен, см. выше
     addIndexItem(data) {
       let dataWithIndex = [];
 
@@ -39,11 +46,13 @@ export default class Model {
       return dataWithIndex;
     }
 
+    // не нужен, см. выше
     addFavoritesItem(indexItem) {
       this.favoritesIndexArr.push(+indexItem);
       this.createFavoritesData(this.favoritesIndexArr);
     }
 
+    // не нужен, см. выше
     removeFavoritesItem(indexItem) {
       remove(this.favoritesIndexArr, n => n === +indexItem);
       this.createFavoritesData(this.favoritesIndexArr);
@@ -74,6 +83,9 @@ export default class Model {
       return this.data;
     }
 
+    // статичный метод
+    // не хватает return 0 в конце, вроде как оно будет оптимальнее
+    // можно переписать под тернарник, это будет лучше, чем два if-а и оба без скобочек
     _fromLowToHight(a, b) {
       if (a[0] > b[0]) return 1;
       if (a[0] < b[0]) return -1;
@@ -84,6 +96,7 @@ export default class Model {
       if (a[0] > b[0]) return -1;
     }
 
+    // тут вообще что-то не понятное, не только в плане кода, а в плане тз.
     _sorting(upGradeData, sortValue) {
       let plansPercentOneDeveloper = [];
     
@@ -96,11 +109,13 @@ export default class Model {
 
         if(sortValue === "fromLowToHight") {
           plansPercentOneDeveloper.push([minN(plansPercentOneObject)[0], i]);
+          // сортировка проводится на каждой итерации, хотя нужна одна, после for
           plansPercentOneDeveloper.sort(this._fromLowToHight);
         }
 
         else if(sortValue === "fromHightToLow") {
           plansPercentOneDeveloper.push([maxN(plansPercentOneObject)[0], i]);
+          // сортировка проводится на каждой итерации, хотя нужна одна, после for
           plansPercentOneDeveloper.sort(this._fromHightToLow);
         }
 
@@ -113,6 +128,7 @@ export default class Model {
       return this._createdSortedArr(plansPercentOneDeveloper, upGradeData);
     }
 
+    // что-то страшное (
     _createdSortedArr(plansPercentOneDeveloper, upGradeData) {
       let indexArr = [];
       let sortedArr = [];
@@ -132,6 +148,7 @@ export default class Model {
     upGradeDataFunction(valueSearch, sort, numberForStart) {
       let sortValue = sort;
 
+      // плохо ограничивать модель по работе с данными, это вполне может сделать и контроллер.
       if(valueSearch.length < numberForStart) {
         return this._sorting(this.data, sortValue); 
       }
@@ -142,6 +159,7 @@ export default class Model {
       for(let i = 0; i < this.data.length; i++){
         
         //ищем по названию завтройщика
+        // не используй indexOf !== -1 для проверки вхождения подстроки в строку, это плохо читается.
         if(this.data[i].builderName.toUpperCase().indexOf(simbolsForSearch) !== -1){
           upGradeData.push(this.data[i]);
               
