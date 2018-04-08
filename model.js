@@ -2,27 +2,15 @@
 const minN = (arr, n = 1) => [...arr].sort((a, b) => a - b).slice(0, n);
 const maxN = (arr, n = 1) => [...arr].sort((a, b) => b - a).slice(0, n);
 
-const remove = (arr, func) =>
-  Array.isArray(arr)
-    ? arr.filter(func).reduce((acc, val) => {
-        arr.splice(arr.indexOf(val), 1);
-        return acc.concat(val);
-      }, [])
-    : [];
-
 export default class Model {
 
     constructor(data, setIdFavoritesFromLocal) {
       this.data = data;
-      this.favoritesIndexArr = [];
-      this.favoritesData = [];
-
-      //new
       this.favoritesIdSet = new Set(setIdFavoritesFromLocal);
+      this.favoritesData = [];
     }
 
     cleanFavoritesData(data) {
-      this.favoritesIndexArr = [];
       this.favoritesData = [];
 
       for(let i = 0; i < this.data.length; i++){
@@ -30,57 +18,32 @@ export default class Model {
       }
     }
 
-    addIndexItem(data) {
-      let dataWithIndex = [];
-
-      for(let i = 0; i < data.length; i++){
-        data[i].dataIndex = i;
-        data[i].dataFavorites = false;
-        dataWithIndex.push(data[i]);
-      }
-
-      return dataWithIndex;
-    }
-
-    //new
     addFavoritesId(id) {
     	this.favoritesIdSet.add(id);
+    	this.createFavoritesData();
     }
 
-    //new
     removeFavoritesId(id) {
     	this.favoritesIdSet.delete(id);
+    	this.createFavoritesData();
     }
 
-    addFavoritesItem(indexItem) {
-      this.favoritesIndexArr.push(+indexItem);
-      this.createFavoritesData(this.favoritesIndexArr);
-    }
+    createFavoritesData() {
+    	this.favoritesData = [];
 
-    removeFavoritesItem(indexItem) {
-      remove(this.favoritesIndexArr, n => n === +indexItem);
-      this.createFavoritesData(this.favoritesIndexArr);
-    }
+    	for(let i = 0; i < this.data.length; i++){
 
-    createFavoritesData(favoritesIndexArr) {
-      this.favoritesData = [];
+    		this.data[i].dataFavorites = false;
 
-      for(let i = 0; i < this.data.length; i++){
+			this.favoritesIdSet.forEach((id) => {
+				if(this.data[i].builderName === id) {
+					this.data[i].dataFavorites = true;
+            		this.favoritesData.push(this.data[i]);
+				}
+			});
+    	}
 
-        this.data[i].dataFavorites = false;
-
-        for(let j = 0; j < favoritesIndexArr.length; j++){
-
-          if(this.data[i].dataIndex === favoritesIndexArr[j]) {
-            this.data[i].dataFavorites = true;
-            this.favoritesData.push(this.data[i]);
-          }
-         
-        }
-
-      }
-
-      this._upGradeDataFunctionStateOfFavorites();
+    	this._upGradeDataFunctionStateOfFavorites();
     }
 
     _upGradeDataFunctionStateOfFavorites() {

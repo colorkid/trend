@@ -70,11 +70,11 @@ export default class View {
         return this.search.value;
     }
 
-    clickOnSort(sorting) {
+   /* clickOnSort(sorting) {
         for (let i = 0; i < this.arrows.length; i++) {
             this.arrows[i].addEventListener("click", sorting, this.valueSort);
         }
-    }
+    }*/
 
     valueSort(event) {
         if(event.target.classList.contains("arrow--selected")) return "undefined";
