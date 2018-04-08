@@ -3,7 +3,7 @@ import templateObject from './templateObject.js';
 
 export default class View {
 
-    constructor() {
+    constructor(handlers) {
         this.container = document.querySelector("#container");
         this.arrowsWrapper = document.querySelector(".arrows");
         this.arrows = document.querySelectorAll(".arrow");
@@ -11,44 +11,33 @@ export default class View {
         this.favoriteButton = document.querySelector("#favorites-button");
         this.allButton = document.querySelector("#all-button");
         this.deleteAllButton = document.querySelector("#delete-all");
+
+        for (let i = 0; i < this.arrows.length; i++) { 
+            this.arrows[i].addEventListener("click", handlers.onClickSort); 
+        }
+
+        this.search.addEventListener("keyup", handlers.onKeyUpSearch);
+        this.container.addEventListener("click", handlers.onClickAddFavoriteButton);
+        this.favoriteButton.addEventListener("click", handlers.onClickShowFavoriteItemsButton);
+        this.allButton.addEventListener("click", handlers.onClickAllButton);
+        this.deleteAllButton.addEventListener("click", handlers.onClickOnDeleteAllButton);
     }
 
-    includedUi() {
-        this.search.removeAttribute("disabled");
-        this.arrowsWrapper.classList.remove("arrows--disabled");
-    }
+    diplayUi(state) {
+        if(state === "enable") {
+            this.search.removeAttribute("disabled");
+            this.arrowsWrapper.classList.remove("arrows--disabled");
+            this.deleteAllButton.classList.remove("button--show");
+            return;
+        }
 
-    disabledUi() {
         this.search.setAttribute("disabled", "true");
         this.arrowsWrapper.classList.add("arrows--disabled");
-    }
-
-    clickOnDeleteAllButton(callDeleteAllButton) {
-        this.deleteAllButton.addEventListener("click", callDeleteAllButton);
-    }
-
-    hideDeleteAllButton() {
-        this.deleteAllButton.classList.remove("button--show");
-    }
-
-    showDeleteAllButton() {
         this.deleteAllButton.classList.add("button--show");
     }
 
-    clickOnAllButton(callAllButton) {
-        this.allButton.addEventListener("click", callAllButton);
-    }
-
-    clickOnFavoriteButton(callFavoriteButton) {
-        this.favoriteButton.addEventListener("click", callFavoriteButton);
-    }
-
-    clickOnContainer(callClickOnContainer) {
-        this.container.addEventListener("click", callClickOnContainer, this.whatIsEvent);
-    }
-
-    whatIsEvent(event) {
-        return event.target;
+    showHideDeleteAllButton(state) {
+        this.deleteAllButton.classList.remove("button--show");
     }
 
     changeStateFavoritesButton(buttonFavorites) {
@@ -62,35 +51,12 @@ export default class View {
         buttonFavorites.classList.add("table__cell--on-like");
     }
 
-    keyUpOnSearch(enterCharacters) {
-        this.search.addEventListener("keyup", enterCharacters, this.valueSearch);
-    }
-
-    valueSearch() {
-        return this.search.value;
-    }
-
-   /* clickOnSort(sorting) {
-        for (let i = 0; i < this.arrows.length; i++) {
-            this.arrows[i].addEventListener("click", sorting, this.valueSort);
-        }
-    }*/
-
-    valueSort(event) {
-        if(event.target.classList.contains("arrow--selected")) return "undefined";
-        return event.target.dataset.arrow;
-    }
-
     changeClassSort(value) {
         
         for (let i = 0; i < this.arrows.length; i++) {
 
             if(this.arrows[i].dataset.arrow === value && !this.arrows[i].classList.contains("arrow--selected")) {
                 this.arrows[i].classList.add("arrow--selected");
-            }
-
-            else if(this.arrows[i].dataset.arrow === value && this.arrows[i].classList.contains("arrow--selected")) {
-                this.arrows[i].classList.remove("arrow--selected");
             }
 
             else {

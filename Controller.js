@@ -8,23 +8,15 @@ export default class Controller {
       this.model.createFavoritesData();
       this.valueSearch = "";
       this.sort = undefined;
-      /*this.view = new View();
-      this.view.keyUpOnSearch(this.enterCharacters.bind(this));
-      this.view.clickOnSort(this.sorting.bind(this));
-      this.view.clickOnContainer(this.callClickOnContainer.bind(this));
-      this.view.clickOnFavoriteButton(this.callFavoriteButton.bind(this));
-      this.view.clickOnAllButton(this.callAllButton.bind(this));
-      this.view.clickOnDeleteAllButton(this.callDeleteAllButton.bind(this));*/
       this.view = new View({
-        keyUpOnSearch: this.enterCharacters.bind(this),
-        clickOnSort: this.sorting.bind(this),
-        clickOnContainer: this.callClickOnContainer.bind(this),
-        clickOnFavoriteButton: this.callFavoriteButton.bind(this),
-        clickOnAllButton: this.callAllButton.bind(this),
-        clickOnDeleteAllButton: this.callDeleteAllButton.bind(this)
+        onKeyUpSearch: this.setOnKeyUpSearch.bind(this),
+        onClickSort: this.setOnClickSort.bind(this),
+        onClickAddFavoriteButton: this.setOnClickAddFavoriteButton.bind(this),
+        onClickShowFavoriteItemsButton: this.setOnClickShowFavoriteItemsButton.bind(this),
+        onClickAllButton: this.setOnClickAllButton.bind(this),
+        onClickOnDeleteAllButton: this.setOnClickOnDeleteAllButton.bind(this)
       });
-
-      this._renderNewData(Controller.numberForStartSearch);
+      this._renderNewData();
     }
 
     initModel(data) {
@@ -39,63 +31,67 @@ export default class Controller {
       localStorage.setItem('idFavoritesLocalStorage', serialLocalStorageData);
     }
 
-    callDeleteAllButton() {
+    setOnClickOnDeleteAllButton() {
       this.model.cleanFavoritesData(this.dataFromModelToView);
       this.view.renderData(this.model.favoritesData);
       this.dataFromModelToView = this.model.data;
+      this.setLocalStorageData();
     }
 
-    callAllButton() {
+    setOnClickAllButton() {
       this.view.renderData(this.dataFromModelToView);
-      this.view.hideDeleteAllButton();
-      this.view.includedUi();
+      this.view.diplayUi("enable");
     }
 
-    callFavoriteButton() {
+    setOnClickShowFavoriteItemsButton() {
       this.view.renderData(this.model.favoritesData);
-      this.view.showDeleteAllButton();
-      this.view.disabledUi();  
+      this.view.diplayUi("disabled");
     }
 
-    callClickOnContainer() {
-      let eventTarget = this.view.whatIsEvent(event);
-      this._addRemoveInFavorites(eventTarget);
-    }
-
-    _addRemoveInFavorites(eventTarget) {
-      if(eventTarget.classList.contains("table__cell--like")){
-        this.view.changeStateFavoritesButton(eventTarget);
-        this._addOrRemoveInFavorites(eventTarget);
-        this.setLocalStorageData();
+    setOnClickAddFavoriteButton(event) {
+      if(event.target.classList.contains("table__cell--like") && !event.target.classList.contains("table__cell--on-like")){
+        this.model.addFavoritesId(event.target.dataset.id);
       }
-    }
 
-    _addOrRemoveInFavorites(eventTarget) {
-      if(!eventTarget.classList.contains("table__cell--on-like")){
-        this.model.removeFavoritesId(eventTarget.dataset.id);
+      else if(event.target.classList.contains("table__cell--like") && event.target.classList.contains("table__cell--on-like")) {
+        this.model.removeFavoritesId(event.target.dataset.id);
+      }
+
+      else {
         return;
       }
-      this.model.addFavoritesId(eventTarget.dataset.id);
+
+      this.view.changeStateFavoritesButton(event.target);
+      this.setLocalStorageData();
     }
 
-    sorting() {
-      let valueSort = this.view.valueSort(event);
-      this.view.changeClassSort(valueSort);
-      this.sort = valueSort;
-      this._renderNewData(Controller.numberForStartSearch);
+    setOnClickSort(event) {
+      if(event.target.classList.contains("arrow--selected")){
+        this.view.changeClassSort(undefined);
+        this.sort = null;
+      }
+
+      else {
+        this.view.changeClassSort(event.target.dataset.arrow);
+        this.sort = event.target.dataset.arrow;
+      }
+
+      this._renderNewData();
     }
 
-    enterCharacters() {
-    	this._renderNewData(Controller.numberForStartSearch);
+    setOnKeyUpSearch(event) {
+      this.valueSearch = event.target.value;
+    	this._renderNewData();
     }
 
     _newDataFromModelToRender(dataFromModelToView) {
     	this.view.renderData(dataFromModelToView);
     }
 
-    _renderNewData(numberForStartSearch) {
-      this.valueSearch = this.view.valueSearch();
-      this.dataFromModelToView = this.model.upGradeDataFunction(this.valueSearch, this.sort, numberForStartSearch);
+    _renderNewData() {
+      const valueSearch = (this.valueSearch.length < Controller.numberForStartSearch) ? "" : this.valueSearch;
+      this.dataFromModelToView = this.model.upGradeDataFunction(valueSearch, this.sort, Controller.numberForStartSearch);
       this._newDataFromModelToRender(this.dataFromModelToView);
     }
 }
+
