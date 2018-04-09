@@ -1,7 +1,7 @@
-import templateDeveloper from './templateDeveloper.js';
-import templateObject from './templateObject.js';
+/*import templateDeveloper from './templateDeveloper.js';
+import templateObject from './templateObject.js';*/
 
-export default class View {
+/*export default*/ class View {
 
     constructor(handlers) {
         this.container = document.querySelector("#container");
@@ -42,12 +42,12 @@ export default class View {
 
     changeStateFavoritesButton(buttonFavorites, state) {
         if(state === true) {
-            buttonFavorites.innerHTML = "Убрать из изрбанного";
+            buttonFavorites.textContent = "Убрать из изрбанного";
             buttonFavorites.classList.add("table__cell--on-like");
         }
 
         else {
-            buttonFavorites.innerHTML = "Добавить в избранное";
+            buttonFavorites.textContent = "Добавить в избранное";
             buttonFavorites.classList.remove("table__cell--on-like")
         }
     }

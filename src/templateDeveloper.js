@@ -1,4 +1,4 @@
-export default function templateDeveloper (developer) {
+/*export default*/ function templateDeveloper (developer) {
   let row = document.createElement("div");
   row.className = "table__row";
 

@@ -2,7 +2,7 @@
 const minN = (arr, n = 1) => [...arr].sort((a, b) => a - b).slice(0, n);
 const maxN = (arr, n = 1) => [...arr].sort((a, b) => b - a).slice(0, n);
 
-export default class Model {
+/*export default*/ class Model {
 
     constructor(data, setIdFavoritesFromLocal) {
       this.data = data;
