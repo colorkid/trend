@@ -40,15 +40,16 @@ export default class View {
         this.deleteAllButton.classList.remove("button--show");
     }
 
-    changeStateFavoritesButton(buttonFavorites) {
-        if(buttonFavorites.classList.contains("table__cell--on-like")){
-            buttonFavorites.innerHTML = "Добавить в избранное";
-            buttonFavorites.classList.remove("table__cell--on-like");
-            return;
+    changeStateFavoritesButton(buttonFavorites, state) {
+        if(state === true) {
+            buttonFavorites.innerHTML = "Убрать из изрбанного";
+            buttonFavorites.classList.add("table__cell--on-like");
         }
 
-        buttonFavorites.innerHTML = "Убрать из изрбанного";
-        buttonFavorites.classList.add("table__cell--on-like");
+        else {
+            buttonFavorites.innerHTML = "Добавить в избранное";
+            buttonFavorites.classList.remove("table__cell--on-like")
+        }
     }
 
     changeClassSort(value) {
@@ -70,7 +71,6 @@ export default class View {
     renderData(data) {
         this.container.innerHTML = "";
 
-        // - если комбинация символов в search ненайдена
         if(data.length === 0) {
             this.container.innerHTML = "Ничего не найдено";
             return;
@@ -87,7 +87,6 @@ export default class View {
             let allBlocks = document.createElement("div");
             allBlocks.className = "block";
 
-            //внутри массива может быть подмассив
             for(let y = 0; y < allDevelopers[i].blocks.length; y++){
                 object = templateObject(allDevelopers[i].blocks[y]);
                 fragmentObject = document.createDocumentFragment();
@@ -96,7 +95,10 @@ export default class View {
             }
 
             fragmentDeveloper = document.createDocumentFragment();
-            developersItem = templateDeveloper(allDevelopers[i], allBlocks);
+            developersItem = templateDeveloper(allDevelopers[i]);
+            const blockDiv = developersItem.querySelector(".table__cell--blocks");
+            blockDiv.appendChild(allBlocks);
+
             fragmentObject.appendChild(developersItem);
             this.container.appendChild(fragmentObject);
         }

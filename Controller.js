@@ -49,19 +49,23 @@ export default class Controller {
     }
 
     setOnClickAddFavoriteButton(event) {
+      let selectedButtonGoToFavotite = false;
+
       if(event.target.classList.contains("table__cell--like") && !event.target.classList.contains("table__cell--on-like")){
         this.model.addFavoritesId(event.target.dataset.id);
+        selectedButtonGoToFavotite = true;
       }
 
       else if(event.target.classList.contains("table__cell--like") && event.target.classList.contains("table__cell--on-like")) {
         this.model.removeFavoritesId(event.target.dataset.id);
+        selectedButtonGoToFavotite = false;
       }
 
       else {
         return;
       }
 
-      this.view.changeStateFavoritesButton(event.target);
+      this.view.changeStateFavoritesButton(event.target, selectedButtonGoToFavotite);
       this.setLocalStorageData();
     }
 

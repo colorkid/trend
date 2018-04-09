@@ -5,11 +5,11 @@ const maxN = (arr, n = 1) => [...arr].sort((a, b) => b - a).slice(0, n);
 export default class Model {
 
     constructor(data, setIdFavoritesFromLocal) {
-      	this.data = data;
-      	this.favoritesIdSet = new Set(setIdFavoritesFromLocal);
-      	this.favoritesData = [];
+      this.data = data;
+      this.favoritesIdSet = new Set(setIdFavoritesFromLocal);
+      this.favoritesData = [];
 
-      	Model.fromLowToHight = (a, b) => {
+      Model.fromLowToHight = (a, b) => {
     		return (a[0] > b[0]) ? 1 : -1;
     	}
 
@@ -44,12 +44,12 @@ export default class Model {
 
     		this.data[i].dataFavorites = false;
 
-			this.favoritesIdSet.forEach((id) => {
-				if(this.data[i].builderName === id) {
-					this.data[i].dataFavorites = true;
-            		this.favoritesData.push(this.data[i]);
-				}
-			});
+			  this.favoritesIdSet.forEach((id) => {
+  				if(this.data[i].builderName === id) {
+  					this.data[i].dataFavorites = true;
+            this.favoritesData.push(this.data[i]);
+  				}
+			  });
     	}
 
     	this._upGradeDataFunctionStateOfFavorites();
@@ -91,6 +91,7 @@ export default class Model {
       return this._createdSortedArr(plansPercentOneDeveloper, upGradeData);
     }
 
+    //создаем отсортированный массив sortedArr, беря индекс элементов из plansPercentOneDeveloper и item из upGradeData
     _createdSortedArr(plansPercentOneDeveloper, upGradeData) {
     	let indexArr = [];
     	let sortedArr = [];
@@ -100,10 +101,10 @@ export default class Model {
     	}
 
     	for(let i = 0; i < indexArr.length; i++){
-        	sortedArr.push(upGradeData[indexArr[i]]);
-      	}
+        sortedArr.push(upGradeData[indexArr[i]]);
+      }
 
-      	return sortedArr;
+      return sortedArr;
     }
 
     upGradeDataFunction(valueSearch, sort, numberForStart) {
@@ -113,7 +114,7 @@ export default class Model {
 
       for(let i = 0; i < this.data.length; i++){
         
-        if(this.data[i].builderName.toUpperCase().indexOf(simbolsForSearch) !== -1){
+        if(this.data[i].builderName.toUpperCase().includes(simbolsForSearch)){
           upGradeData.push(this.data[i]);
               
           continue;
@@ -121,7 +122,7 @@ export default class Model {
 
         for(let j = 0; j < this.data[i].blocks.length; j++){
 
-          if(this.data[i].blocks[j].blockName.toUpperCase().indexOf(simbolsForSearch) !== -1){
+          if(this.data[i].blocks[j].blockName.toUpperCase().includes(simbolsForSearch)){
             upGradeData.push(this.data[i]);
           }
               
