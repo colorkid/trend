@@ -3,9 +3,13 @@ var webpack = require("webpack");
 module.exports = {
     entry: ["whatwg-fetch", "./src/app.js"],
     output: {
-        publicPath: "./",
+        publicPath: "/bundles/",
         filename: "./bundle.js"
     },
+
+    mode: 'production',
+   	
+
 
     module: {
 	  rules: [
