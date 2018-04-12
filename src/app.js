@@ -1,25 +1,16 @@
-/*import Controller from './Controller.js';*/
+import Controller from './Controller.js';
 
 function startApp() {
-  let request = new XMLHttpRequest();
-  request.open('GET', 'data.json', true);
-
-  request.onload = function() {
-    if (request.status >= 200 && request.status < 400) {
-      new Controller(JSON.parse(request.responseText));
-    
-    } else {
-      request.onerror();
-    }
-  };
-
-  request.onerror = function(err) {
-    console.log(err.name);
-    console.log(err.message);
-    console.log(err.stack);
-  };
-
-  request.send();
+  fetch('data.json')
+    .then(response => response.json())
+      .then(function(data) {
+        new Controller(data);
+    }).catch(
+    response => {
+      console.log(err.name);
+      console.log(err.message);
+      console.log(err.stack);
+    })
 }
 
 document.addEventListener("DOMContentLoaded", startApp);

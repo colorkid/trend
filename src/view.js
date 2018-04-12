@@ -1,7 +1,7 @@
-/*import templateDeveloper from './templateDeveloper.js';
-import templateObject from './templateObject.js';*/
+import templateDeveloper from './templateDeveloper.js';
+import templateObject from './templateObject.js';
 
-/*export default*/ class View {
+export default class View {
 
     constructor(handlers) {
         this.container = document.querySelector("#container");

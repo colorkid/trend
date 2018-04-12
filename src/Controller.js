@@ -1,7 +1,7 @@
-/*import View from './view.js';
+import View from './view.js';
 import Model from './model.js';
 
-export default*/ class Controller {
+export default class Controller {
 
     constructor(data) {
       this.initModel(data.data);

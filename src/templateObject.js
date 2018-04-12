@@ -1,4 +1,4 @@
-/*export default*/ function templateObject(objects) {
+export default function templateObject(objects) {
     let object = document.createElement("div");
     object.className = "block__item";
 
