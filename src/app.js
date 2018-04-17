@@ -1,7 +1,6 @@
 import Controller from './Controller.js';
 
 function startApp() {
-	alert("qw");
   fetch('data.json')
     .then(response => response.json())
       .then(function(data) {
